@@ -1,0 +1,6 @@
+._*
+.DS_Store
+.smbdelete*
+.package-lock.json
+node_modules
+dist/css/style.min.css

@@ -1,0 +1,38 @@
+{
+  "name": "create-stratox",
+  "version": "1.0.0",
+  "description": "JavaScript template framework for the effortless creation of component, views and user interfaces (UI).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "bugs": {
+    "url": "https://stratox.wazabii.se/issues",
+    "email": "daniel.ronkainen@wazabii.se"
+  },
+  "dependencies": {
+    "stratox": "^2.1.4"
+  },
+  "devDependencies": {
+    "vite": "^5.1.1"
+  },
+  "homepage": "https://stratox.wazabii.se/",
+  "keywords": [
+    "javascript",
+    "template",
+    "library",
+    "agnostic",
+    "module",
+    "component",
+    "modern",
+    "views",
+    "templates",
+    "customtags",
+    "forms",
+    "fields",
+    "formbuilder"
+  ],
+  "author": "Daniel Ronkainen",
+  "license": "Apache-2.0"
+}
