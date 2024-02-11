@@ -1,6 +1,5 @@
-import { Stratox } from '../../stratox/src/Stratox.js';
-import { Dispatcher } from '../../StateHandler/src/Dispatcher.js';
-//import { Router } from '../../StateHandler/src/Router.js';
+import { Stratox } from 'stratox/src/Stratox.js';
+import { Dispatcher } from './assets/Dispatcher.js';
 
 export class App {
 
@@ -33,8 +32,13 @@ export class App {
 					method = data.meta.controller;
 				} else {
 					const controllerClass = App.getClass(data.meta);
-					method = controllerClass[data.meta.controller[1]];
+					if(controllerClass) method = controllerClass[data.meta.controller[1]];
 				}
+
+				if(typeof method !== "function") {
+					throw new Error("The router controller argumnet expects either a callable or an array with class and method");
+				}
+
 
 				response = App.createResponse(method.apply(inst, [data.meta, data.router]));
 
@@ -86,18 +90,15 @@ export class App {
 	}
 
 	static getClass(data) {
-	    let controllerData = data.controller[0].split("/"), 
-	    className = controllerData.pop(),
-	    directory = controllerData.join("/");
-	    if(directory.length > 0) directory = directory+"/";
-
-	    try {
-	    	const controllerReq = require('./Controllers/'+directory+className+'.js');
-	    	return new controllerReq[className]();
-	       
-	    } catch (error) {
-	        throw new Error("Could not find the file \""+directory+className+".js\" with the class \""+className+"\"!");
-	    }
+		let controllerClass;
+		if(typeof data.controller?.[0]?.constructor === "function") {
+			if(typeof data.controller[0] === "function") {
+				controllerClass = new data.controller[0]();
+			} else {
+				controllerClass = data.controller[0];
+			}
+		}
+		return controllerClass;
 	}
 
 	static createResponse(response) {

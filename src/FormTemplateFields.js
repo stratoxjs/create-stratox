@@ -1,7 +1,6 @@
+import { StratoxTemplate } from 'stratox/src/StratoxTemplate.js';
 
-import { StratoxTemplate } from '../../stratox/src/StratoxTemplate.js';
-
-export class FormTemplateFields extends StratoxTemplate {
+export default class FormTemplateFields extends StratoxTemplate {
     
     /**
      * Regular input field
