@@ -7,4 +7,5 @@ router.get('{page:about}', [Pages, "about"]);
 router.get('{page:contact}/{id:[0-9]+}', [Pages, "contact"]);
 router.post('{page:contact}/{id:[0-9]+}', [Pages, "contactPost"]);
 
+
 export default router;
