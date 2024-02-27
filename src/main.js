@@ -1,24 +1,30 @@
-import router from './routes.js';
-import { App } from './App.js';
-import FormTemplateFields from './FormTemplateFields.js';
-import navigation from './Pages/nav.js';
+import './style.css';
+import { App } from './App';
+import FormTemplateFields from './templates/FormTemplateFields';
+import header from './templates/views/header';
+import mainRoutes from './routes';
 
 const app = new App({
-    directory: "../src/Pages/", // DYNAMIC VIEW FIX
+    directory: "/src/templates/views/",
     handlers: {
         fields: FormTemplateFields,
         helper: function() {
             return {
+                youName: "YOUR HELPER"
             };
         }
     }
 });
 
-const dispatcher = app.setup("#app").mount(router, function(response) {
+
+app.setup("#app").mount(mainRoutes, app.serverParams("fragment"), function(response) {
     return `
-    ${this.partial(navigation)}
-    <main id="main">
-        ${response}
-    </main>
+        ${this.partial(header)}
+        <main>
+            ${response}
+        </main>
+        <footer class="card-4 text-center legend">
+            Your footer text here
+        </footer>
     `;
 });
