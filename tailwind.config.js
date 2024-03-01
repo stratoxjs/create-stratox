@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+//const plugin = require('tailwindcss/plugin');
+//../StratoxTailwind/src/index.js
+
 export default {
     content: [
         "./index.html",
@@ -33,6 +37,30 @@ export default {
     },
     plugins: [
         require('@stratox/tailwind').config({
+            fontFamily: ['Open Sans', 'Helvetica', 'Arial', 'sans-serif'],
+            fontFace: [
+                {
+                        'font-family': '"Open Sans"',
+                        'src': 'url("/src/assets/opensans-bold-webfont.woff2") format("woff2")',
+                        'font-weight': 'bold',
+                        'font-style': 'normal',
+                        'font-display': 'swap'
+                },
+                {
+                        'font-family': '"Open Sans"',
+                        'src': 'url("/src/assets/opensans-italic-webfont.woff2") format("woff2")',
+                        'font-weight': 'normal',
+                        'font-style': 'italic',
+                        'font-display': 'swap'
+                },
+                {
+                        'font-family': '"Open Sans"',
+                        'src': 'url("/src/assets/opensans-regular-webfont.woff2") format("woff2")',
+                        'font-weight': 'normal',
+                        'font-style': 'normal',
+                        'font-display': 'swap'
+                }
+            ]
         })
     ],
 }

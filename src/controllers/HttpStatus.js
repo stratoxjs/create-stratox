@@ -6,7 +6,7 @@ export class HttpStatus {
     }
 
     statusError(data, router) {
-        this.view("textView", {
+        this.view("text", {
             headline: "404",
             content: "lorem ipsum dolor 12",
         });

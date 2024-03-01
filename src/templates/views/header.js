@@ -3,7 +3,7 @@ export default function header(data, container, helper, builder) {
    return `
     <header id="header" class="card-4 border-bottom items">
         <figure id="logo" class="headline-6 m-0">
-            Startox
+            [DIN LOGOTYP]
         </figure>
     	<nav class="ml-auto">
             <ul class="items gap-x-15">

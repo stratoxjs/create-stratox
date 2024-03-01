@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "lint": "eslint . --ext .js --fix --ignore-path .gitignore"
   },
   "bugs": {

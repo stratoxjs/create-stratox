@@ -1,6 +1,7 @@
-import { Stratox } from '../../stratox/src/Stratox.js';
-//import { Stratox } from 'stratox/src/Stratox';
-import { Dispatcher } from '@stratox/pilot/src/Dispatcher';
+import { Stratox } from 'stratox/src/Stratox';
+//import { Stratox } from '../../stratox/src/Stratox.js';
+import { Dispatcher } from '@stratox/pilot';
+
 
 export class App {
 
@@ -9,8 +10,6 @@ export class App {
 	#router;
 	#config = {};
 	#elem;
-	static view = false;
-	static hasLoaded = false;
 
 	constructor(config) {
 		Stratox.setConfigs(config);
@@ -41,7 +40,17 @@ export class App {
 			throw new Error("The router controller argument expects either a callable or an array with class and method");
 		}
 
-		const obj = App.createResponse(method.apply(inst, [data.meta, data.router, data.app]));
+		let createResponse = method.apply(inst, [data.meta, data.router, data.app]);
+		if(typeof createResponse === "string") {
+			response = createResponse;
+			Stratox.setComponent("StratoxPlaceholderView", function() {
+				return response;
+			});
+			inst.view("StratoxPlaceholderView");
+			createResponse = inst;
+		}
+
+		const obj = App.createResponse(createResponse);
 
 		if(response === undefined) {
             response = "";
@@ -54,7 +63,6 @@ export class App {
 			let call = data.callable.apply(obj.inst, [obj.response, data.meta]);
 			return call;
 		}
-
 		return response;
 	}
 
@@ -71,18 +79,31 @@ export class App {
 		return this;
 	}
 
+	/**
+	 * Get the Dispatcher instance
+	 * @return {Dispatcher}
+	 */
 	getDispatcher() {
 		return this.#dispatcher;
 	}
 
+	/**
+	 * Dynamic function for collecting Server requests
+	 * @param  {string} type
+	 * @return {function}
+	 */
 	serverParams(type) {
 		return this.#dispatcher.serverParams(type);
 	}
 
+	/**
+	 * Dynamic function for collecting common js requests
+	 * @param  {string} type
+	 * @return {function}
+	 */
 	request(type) {
 		return this.#dispatcher.request(type);
 	}
-
 	
 	/**
 	 * Set app main element
@@ -94,6 +115,13 @@ export class App {
 		return this;
 	}
 
+	/**
+	 * Mount app to dispatcher
+	 * @param  {Router}   	routeCollection Instance of Router (@Stratox/Pilot Router)
+	 * @param  {Function}   serverParams    Dynamic function for collecting server requests (App.serverParams("hash") or App.request("path"))
+	 * @param  {Function} 	fn              Set index view
+	 * @return {self}
+	 */
 	mount(routeCollection, serverParams, fn) {
 		const inst = this;
 		const elem = this.#elem;
@@ -103,7 +131,59 @@ export class App {
 		return this;
 	}
 
-	mountAt(routeCollection, serverParams, fn) {
+	/**
+	 * Mount app to dispatcher
+	 * @param  {Router}   	routeCollection Instance of Router (@Stratox/Pilot Router)
+	 * @param  {Function}   serverParams    Dynamic function for collecting server requests (App.serverParams("hash") or App.request("path"))
+	 * @param  {Function} 	fn              Set index view
+	 * @return {self}
+	 */
+	index(fn) {
+		const inst = this;
+		const elem = this.#elem;
+		const name = (typeof elem === "string" ? elem : "main");
+		const stratox = new Stratox(elem, this.#config);
+		//inst.mountIndex(name, stratox, fn)()
+		return this;
+	}
+
+	
+	/**
+	 * Will mount index view
+	 * @param  {string}   name    Index view name
+	 * @param  {Stratox}  stratox Instance of Stratox
+	 * @param  {Function} fn
+	 * @return {Function}
+	 */
+	mountIndex(name, stratox, fn) {
+		const inst = this;
+		Stratox.setComponent(name, this.main);
+
+		return function(data, status) {
+			stratox.view(name, {
+				meta: data,
+				router: this,
+				app: inst,
+				callable: fn
+			});
+			stratox.execute();
+		}
+	}
+
+	/**
+	 * Will prepare dynamic views for vite build
+	 * @param  {object} importManifest
+	 * @return {void}
+	 */
+	prepareDynamicViews(importManifest) {
+        for (const path in importManifest) {
+            importManifest[path]().then((mod) => {
+            });
+        }  
+    }
+
+    /*
+    mountAt(routeCollection, serverParams, fn) {
 		const app = new App(this.#config);
 		app.setup("#main");
 		const div = document.createElement("div");
@@ -111,43 +191,7 @@ export class App {
 		document.body.appendChild(div);
 		return app.mount(routeCollection, serverParams, fn);
 	}
-	
-	mountIndex(name, stratox, fn) {
-
-		const inst = this;
-
-
-		Stratox.setComponent(name, this.main);
-		Stratox.setComponent("mainView", this.main);
-		console.log("INIT");
-
-		return function(data, status) {
-
-			
-
-			const arg = {
-				meta: data,
-				router: this,
-				app: inst,
-				callable: fn
-			};
-
-			/*
-			console.log("DATA", App.view);
-
-			if(App.hasLoaded) {
-				stratox.createElement("wdwwq");
-			}
-			 */
-
-			stratox.view(name, arg);
-			stratox.execute(function() {
-				App.hasLoaded = true;
-			});
-
-			
-		}
-	}
+     */
 
 	static getClass(data) {
 		let controllerClass;
@@ -162,23 +206,15 @@ export class App {
 	}
 
 	static createResponse(response) {
-
-		let inst = response, main = response;
-
-		// WTF
-		/*
-		if(typeof response === "object" && (typeof response.execute !== "function")) {
-			inst = response.response;
-			response = response.response;
-		}
-		 */
-
+		let inst = response;
 		if(typeof response === "object" && typeof response.execute === "function") {
-
 			let carrot = false, uniqueIDA, uniqueIDB = "stratox-el-"+App.genRandStr(10);
        		response = inst.execute(function() {
        			if(carrot) {
-       				document.getElementById(uniqueIDA).outerHTML = this.getResponse();
+       				inst.eventOnload(function() {
+	       				const el = document.getElementById(uniqueIDA);
+	       				el.outerHTML = inst.getResponse();
+       				});
        			}
        			inst.eventOnload(function() {
        				inst.setElement("#"+uniqueIDB);
@@ -191,8 +227,8 @@ export class App {
        		}
        		response = '<div id="'+uniqueIDB+'">'+response+'</div>';
         }
+
         return {
-        	view: (main?.view ?? false),
         	response: response,
         	inst: inst
         };

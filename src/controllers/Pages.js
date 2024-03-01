@@ -1,68 +1,97 @@
-
+//import { text } from '@/templates/views/text.js';
 
 export class Pages {
-
 
     constructor() {
 
     }
 
     start(data, router) {
-        this.view("textView", {
-            headline: "About",
+        this.view("text", {
+            headline: "Start",
             content: "lorem ipsum dolor",
         });
-        return this;  
+        return this;
     }
 
     about(data, router) {
-
-        this.view("textView#a", {
+        const textSection1 = this.view("text#section1", {
             headline: "About 1",
             content: "lorem ipsum dolor",
         });
 
-        this.view("textView#b", {
+        const textSection2 = this.view("text#section2", {
             headline: "About 2",
+            color: "light",
             content: "lorem ipsum dolor",
         });
-        
+
         /*
         setTimeout(function() {
-            ingressStart.set({headline: "About yeah"}).update();
-        }, 500);
-         */
-        
+            textSection1.set({headline: "About yeah"}).update();
+        }, 1000);
+        */
         return this;
     }
 
     contact(request, container, helper, builder) {
-      
-        this.view("textView", {
-            headline: "Contact",
-            content: "lorem ipsum dolor",
-        });
-        
-        this.group("form", function() {
-            this.form("firstname").setType("text").setLabel('Förnamn');
-            this.form("lastname").setType("text").setLabel('Label');
-            return `
-            <article class="card-2">
-                <div class="wrapper md">
-                    <form action="#contact/12" method="post">
-                        ${this.execute()}
-                        <input type="submit" name="submit">
-                    </form>
-                </div>
-            </article>
-            `;
+        this.view("form", {
+            action: "#contact/12",
+            method: "post",
+            ingress: {
+                headline: "Contact us", 
+                content: "Lorem ipsum dolor"
+            }
+
+        }).setFields({
+            firstname: {
+                type: "text",
+                label: "First name"
+            },
+            lastname: {
+                type: "text",
+                label: "Last name"
+            },
+            custom: {
+                label: "Som more information",
+                type: "group",
+                fields: {
+                    headline: {
+                        type: "text",
+                        label: "Headline"
+                    },
+                    description: {
+                        type: "textarea",
+                        label: "Description"
+                    }
+                },
+                config: {
+                    nestedNames: true,
+                    controls: true
+
+                }
+            },
+            submit: {
+                type: "submit",
+                value: "Send"
+            },
         });
 
+        this.bindGroupEvents("#app");
         return this;
     }
 
     contactPost(request, container, helper, builder) {
-        return "qw dqwd wqdq d";
+        const postData = Object.fromEntries(request.request.post.entries());
+        return `
+        <div class="wrapper md card-1">
+            <header class="mb">
+                <h2 class="headline-1">Post request</h2>
+                <p>Bellow is the catched request data:</p>
+            </header>
+            <pre>${JSON.stringify(postData)}</pre>
+        </div>
+        `;
     }
 
 }

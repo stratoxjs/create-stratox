@@ -4,8 +4,10 @@ import FormTemplateFields from './templates/FormTemplateFields';
 import header from './templates/views/header';
 import mainRoutes from './routes';
 
+
 const app = new App({
-    directory: "/src/templates/views/",
+    cache: true,
+    directory: (import.meta.env.DEV ? "/src/templates/views/" : "./views/"),
     handlers: {
         fields: FormTemplateFields,
         helper: function() {
@@ -16,6 +18,7 @@ const app = new App({
     }
 });
 
+app.prepareDynamicViews(import.meta.glob('@/templates/views/*.js'));
 
 app.setup("#app").mount(mainRoutes, app.serverParams("fragment"), function(response) {
     return `
@@ -28,3 +31,4 @@ app.setup("#app").mount(mainRoutes, app.serverParams("fragment"), function(respo
         </footer>
     `;
 });
+

@@ -1,6 +1,6 @@
 ._*
 .DS_Store
 .smbdelete*
-.package-lock.json
+package-lock.json
 node_modules
 dist
