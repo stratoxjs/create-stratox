@@ -216,6 +216,7 @@ export default class FormTemplateFields extends StratoxBuilder {
 
     /**
      * Group field(s)
+     * @TailwindClasses relative card-3 mb-15 rounded border border-primary inline-block pad right-0 top-0 bottom-0 absolute z-10
      * @return {string}
      */
     group() {

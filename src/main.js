@@ -1,15 +1,13 @@
 import './style.css';
-import { App } from './App';
-import FormTemplateFields from './templates/FormTemplateFields';
-import header from './templates/views/header';
-import mainRoutes from './routes';
+import App from '@/App';
+import components from '@/templates/components';
+import navigation from '@/templates/views/navigation';
+import routes from '@/routes/app';
 
 
 const app = new App({
-    cache: true,
-    directory: (import.meta.env.DEV ? "/src/templates/views/" : "./views/"),
     handlers: {
-        fields: FormTemplateFields,
+        fields: components,
         helper: function() {
             return {
                 youName: "YOUR HELPER"
@@ -20,9 +18,11 @@ const app = new App({
 
 app.prepareDynamicViews(import.meta.glob('@/templates/views/*.js'));
 
-app.setup("#app").mount(mainRoutes, app.serverParams("fragment"), function(response) {
+
+app.setup("#app").mount(routes, app.serverParams("fragment"), function(response, request) {
+
     return `
-        ${this.partial(header)}
+        ${this.partial(navigation, request)}
         <main>
             ${response}
         </main>
@@ -31,4 +31,3 @@ app.setup("#app").mount(mainRoutes, app.serverParams("fragment"), function(respo
         </footer>
     `;
 });
-

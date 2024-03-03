@@ -6,7 +6,7 @@ export class Pages {
 
     }
 
-    start(data, router) {
+    start(request, container, helper, builder) {
         this.view("text", {
             headline: "Start",
             content: "lorem ipsum dolor",
@@ -14,7 +14,11 @@ export class Pages {
         return this;
     }
 
-    about(data, router) {
+    about(request, container, helper, builder) {
+
+        if(!request.inc) request.inc = 1;
+
+        const inst = this.open();
         const textSection1 = this.view("text#section1", {
             headline: "About 1",
             content: "lorem ipsum dolor",
@@ -26,17 +30,25 @@ export class Pages {
             content: "lorem ipsum dolor",
         });
 
-        /*
-        setTimeout(function() {
-            textSection1.set({headline: "About yeah"}).update();
-        }, 1000);
-        */
-        return this;
+        this.done(function(a, b) {
+            const el = document.getElementById("tetetete");
+            el.addEventListener("click", function(e) {
+                e.preventDefault();
+                textSection1.set({headline: "About 1 update: "+request.inc }).update();
+                textSection2.set({headline: "About 2 update: "+request.inc }).update();
+                request.inc++;
+            });
+        });
+        
+        return {
+            append: true,
+            output: '<a id="tetetete" href="#about">dwqdwq</a>'
+        };
     }
 
     contact(request, container, helper, builder) {
         this.view("form", {
-            action: "#contact/12",
+            action: "#contact",
             method: "post",
             ingress: {
                 headline: "Contact us", 
@@ -89,7 +101,7 @@ export class Pages {
                 <h2 class="headline-1">Post request</h2>
                 <p>Bellow is the catched request data:</p>
             </header>
-            <pre>${JSON.stringify(postData)}</pre>
+            <pre>${JSON.stringify(postData, true, 2)}</pre>
         </div>
         `;
     }
