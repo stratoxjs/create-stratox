@@ -1,4 +1,4 @@
-//import { text } from '@/templates/views/text.js';
+import { text } from '@/templates/views/text.js';
 
 export class Pages {
 
@@ -16,37 +16,43 @@ export class Pages {
 
     about(request, container, helper, builder) {
 
-        if(!request.inc) request.inc = 1;
+        const inst = this;
 
-        const inst = this.open();
-        const textSection1 = this.view("text#section1", {
+        let inc = 0;
+        const textSection1 = inst.view("text#section1", {
             headline: "About 1",
             content: "lorem ipsum dolor",
         });
 
-        const textSection2 = this.view("text#section2", {
+        const textSection2 = inst.view("text#section2", {
             headline: "About 2",
             color: "light",
             content: "lorem ipsum dolor",
         });
 
-        this.done(function(a, b) {
+        inst.done(function(a, b) {
             const el = document.getElementById("tetetete");
             el.addEventListener("click", function(e) {
                 e.preventDefault();
-                textSection1.set({headline: "About 1 update: "+request.inc }).update();
-                textSection2.set({headline: "About 2 update: "+request.inc }).update();
-                request.inc++;
+                textSection1.set({headline: "About 1 update: "+inc });
+                textSection2.set({headline: "About 2 update: "+inc });
+                inst.update();
+                inc++;
             });
         });
         
         return {
             append: true,
+            //type: "takeover", 
             output: '<a id="tetetete" href="#about">dwqdwq</a>'
         };
     }
 
     contact(request, container, helper, builder) {
+
+        //console.log(this.getComponent("namw").setType("text").toString());
+        //console.log(this.getComponent("nam2").setType("text").setLabel("wdwdwd").toString());
+
         this.view("form", {
             action: "#contact",
             method: "post",
@@ -68,6 +74,12 @@ export class Pages {
                 label: "Som more information",
                 type: "group",
                 fields: {
+                    /*
+                    www: this.open().view({ text: text }, {
+                        headline: "Start",
+                        content: "lorem ipsum dolor",
+                    }),
+                     */
                     headline: {
                         type: "text",
                         label: "Headline"
@@ -80,7 +92,6 @@ export class Pages {
                 config: {
                     nestedNames: true,
                     controls: true
-
                 }
             },
             submit: {

@@ -10,7 +10,7 @@ const app = new App({
         fields: components,
         helper: function() {
             return {
-                youName: "YOUR HELPER"
+                youName: routes
             };
         }
     }

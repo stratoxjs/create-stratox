@@ -42,7 +42,7 @@ export default class App {
 			throw new Error("The router controller argument expects either a callable or an array with class and method");
 		}
 
-		let createResponse = method.apply(inst, [data.meta, data.router, data.app]);
+		let createResponse = method.apply(inst, [data.meta, container, helper, builder, data.app]);
 
 		if(createResponse instanceof Stratox) {
 			inst = createResponse;

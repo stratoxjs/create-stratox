@@ -1,7 +1,7 @@
 import { StratoxBuilder } from 'stratox/src/StratoxBuilder';
 //import { StratoxBuilder } from '../../../stratox/src/StratoxBuilder.js';
 
-export default class FormTemplateFields extends StratoxBuilder {
+export default class components extends StratoxBuilder {
     
     /**
      * Create a container for you form item 
@@ -26,7 +26,7 @@ export default class FormTemplateFields extends StratoxBuilder {
      * @param  {object} attributes Add attr to input tag
      * @return {string}
      */
-    input(attributes) {
+    input(helper, attributes) {
         if(typeof attributes !== "object") attributes = {};
 
         // Default
@@ -56,7 +56,7 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Regular input field
      * @return {string}
      */
-    text(arg) {
+    text() {
         let inst = this;
         return this.container(function() {
             return inst.input();
@@ -67,10 +67,10 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Password input field
      * @return {string}
      */
-    password() {
+    password(helper) {
         let inst = this;
         return this.container(function() {
-            let out =  inst.input({ type: "password" });
+            let out =  inst.input(helper, { type: "password" });
             return out;
         });
     }
@@ -79,10 +79,10 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Date input field
      * @return {string}
      */
-    date() {
+    date(helper) {
         let inst = this;
         return this.container(function() {
-            return inst.input({ type: "date" });
+            return inst.input(helper, { type: "date" });
         });
     }
 
@@ -90,10 +90,10 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Date time input field
      * @return {string}
      */
-    datetime() {
+    datetime(helper) {
         let inst = this;
         return this.container(function() {
-            return inst.input({ type: "datetime-local" });
+            return inst.input(helper, { type: "datetime-local" });
         });
     }
 
@@ -101,16 +101,16 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Hidden input field
      * @return {string}
      */
-    hidden() {
+    hidden(helper) {
         let inst = this;
-        return inst.input({ type: "hidden" });
+        return inst.input(helper, { type: "hidden" });
     }
 
     /**
      * Textarea field
      * @return {string}
      */
-    textarea() {
+    textarea(helper) {
         let inst = this, attr = this.getAttr({
             name: this.name,
             "data-index": this.index
@@ -125,7 +125,7 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Select field
      * @return {string}
      */
-    select() {
+    select(helper) {
         let inst = this, attrName = ((this.attr && this.attr.multiple) ? this.name+"[]" : this.name), 
         attr = this.getAttr({
             name: attrName,
@@ -151,7 +151,7 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Radio input field
      * @return {string}
      */
-    radio() {
+    radio(helper) {
         let inst = this, attr = this.getAttr({
             type: "radio",
             name: this.name,
@@ -176,7 +176,7 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Checkbox input field
      * @return {string}
      */
-    checkbox() {
+    checkbox(helper) {
         let inst = this, length = Object.keys(inst.data.items).length, attr = this.getAttr({
             type: "checkbox",
             name: ((length > 1) ? this.name+"[]" : this.name),
@@ -201,7 +201,8 @@ export default class FormTemplateFields extends StratoxBuilder {
      * Submit button field
      * @return {string}
      */
-    submit(attributes) {
+    submit(helper) {
+        let attributes = {};
         let inst = this, 
         args = Object.assign({
             type: "submit",
@@ -210,7 +211,6 @@ export default class FormTemplateFields extends StratoxBuilder {
             value: this.value
         }, attributes),
         attr = this.getAttr(args);
-
         return '<div class="submit flex justify-end"><input'+attr+'></div>';
     }
 
