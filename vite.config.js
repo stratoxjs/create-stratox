@@ -1,11 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
 import { normalizePath, defineConfig } from 'vite'
-//import path from 'path';
-
-/*
-const rootDir = fileURLToPath(new URL('./src', import.meta.url));
-console.log(path.resolve(__dirname, './src/templates/views')+'/');
-*/
 
 // https://vitejs.dev/config/
 export default defineConfig({

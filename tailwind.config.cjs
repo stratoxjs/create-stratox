@@ -1,8 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-//const plugin = require('tailwindcss/plugin');
-//../StratoxTailwind/src/index.js
-
 export default {
     content: [
         "./index.html",

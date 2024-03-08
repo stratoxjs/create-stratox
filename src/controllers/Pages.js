@@ -1,57 +1,63 @@
-import { text } from '@/templates/views/text.js';
-
+/**
+ * The Pages Controller
+ * This is a quick example showcasing some powerful functions
+ */
 export class Pages {
 
-    constructor() {
-
-    }
-
     start(request, container, helper, builder) {
-        this.view("text", {
-            headline: "Start",
+
+        const textSection1 = this.view("text#textSection1", {
+            headline: "Welcome!",
             content: "lorem ipsum dolor",
         });
+
+        const textSection2 = this.view("text#textSection2", {
+            headline: `Lorem ipsum`,
+            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor est non congue molestie. 
+            Duis nisi tortor, vehicula quis erat et, accumsan sodales magna. Suspendisse sed justo non lorem lacinia feugiat sed id tortor. 
+            Sed mattis lorem quis diam ultricies malesuada. Donec quis quam elementum, ornare quam in, facilisis ex.`,
+        });
+
+        // Onload will be triggered once on page load!
+        this.onload(function() {
+            textSection2.set({ headline: "Here some information" }).update();
+        });
+
         return this;
     }
 
     about(request, container, helper, builder) {
-
         const inst = this;
 
-        let inc = 0;
-        const textSection1 = inst.view("text#section1", {
-            headline: "About 1",
+        // Add a regular text view
+        inst.view("text#myIngress", {
+            headline: "About us",
             content: "lorem ipsum dolor",
-        });
-
-        const textSection2 = inst.view("text#section2", {
-            headline: "About 2",
-            color: "light",
-            content: "lorem ipsum dolor",
-        });
-
-        inst.done(function(a, b) {
-            const el = document.getElementById("tetetete");
-            el.addEventListener("click", function(e) {
-                e.preventDefault();
-                textSection1.set({headline: "About 1 update: "+inc });
-                textSection2.set({headline: "About 2 update: "+inc });
-                inst.update();
-                inc++;
-            });
         });
         
-        return {
-            append: true,
-            //type: "takeover", 
-            output: '<a id="tetetete" href="#about">dwqdwq</a>'
-        };
+        // This is also just a regualar view without any special functionality
+        const customTemplate = inst.view("increment", {
+            headline: "Start increment",
+            increment: 0
+        });
+
+        let inc = 1;
+        // The done function will be triggered every time the view has been changed
+        inst.done(function(a, b) {
+            const el = document.getElementById("my-btn");
+            el.addEventListener("click", function(e) {
+                e.preventDefault();
+                customTemplate.set({headline: "Incremented", increment: inc });
+                customTemplate.update();
+                // Increment for next update
+                inc++;
+            });
+        });   
+
+        return inst;
     }
 
     contact(request, container, helper, builder) {
-
-        //console.log(this.getComponent("namw").setType("text").toString());
-        //console.log(this.getComponent("nam2").setType("text").setLabel("wdwdwd").toString());
 
         this.view("form", {
             action: "#contact",
@@ -74,12 +80,6 @@ export class Pages {
                 label: "Som more information",
                 type: "group",
                 fields: {
-                    /*
-                    www: this.open().view({ text: text }, {
-                        headline: "Start",
-                        content: "lorem ipsum dolor",
-                    }),
-                     */
                     headline: {
                         type: "text",
                         label: "Headline"
@@ -100,7 +100,6 @@ export class Pages {
             },
         });
 
-        this.bindGroupEvents("#app");
         return this;
     }
 
@@ -115,6 +114,14 @@ export class Pages {
             <pre>${JSON.stringify(postData, true, 2)}</pre>
         </div>
         `;
+    }
+
+    takeover(request, container, helper, builder) {
+        return {
+            //append: true,
+            type: "takeover", 
+            output: 'Will take over the whole view!'
+        };
     }
 
 }

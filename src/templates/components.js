@@ -1,5 +1,4 @@
 import { StratoxBuilder } from 'stratox/src/StratoxBuilder';
-//import { StratoxBuilder } from '../../../stratox/src/StratoxBuilder.js';
 
 export default class components extends StratoxBuilder {
     
@@ -216,7 +215,8 @@ export default class components extends StratoxBuilder {
 
     /**
      * Group field(s)
-     * @TailwindClasses relative card-3 mb-15 rounded border border-primary inline-block pad right-0 top-0 bottom-0 absolute z-10
+     * @TailwindClasses relative card-3 mb-15 rounded border border-primary inline-block pad absolute z-10
+     * @TailwindClasses top-0 bottom-0 right-0 left-1/2 -translate-x-2/4 translate-y-2/4 -translate-y-2/4
      * @return {string}
      */
     group() {

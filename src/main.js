@@ -1,26 +1,21 @@
-import './style.css';
-import App from '@/App';
-import components from '@/templates/components';
-import navigation from '@/templates/views/navigation';
+import '@/assets/style.css';
+import { App } from '@stratox/core';
 import routes from '@/routes/app';
-
+import components from '@/templates/components';
+import navigation from '@/templates/layout/navigation';
 
 const app = new App({
-    handlers: {
-        fields: components,
-        helper: function() {
-            return {
-                youName: routes
-            };
-        }
+    components: components, 
+    helper: function() {
+        // The Helpers of your choice will be passed to the controllers, views and components
+        return {
+            yourHelper1: {},
+            yourHelper2: {}
+        };
     }
 });
 
-app.prepareDynamicViews(import.meta.glob('@/templates/views/*.js'));
-
-
 app.setup("#app").mount(routes, app.serverParams("fragment"), function(response, request) {
-
     return `
         ${this.partial(navigation, request)}
         <main>
