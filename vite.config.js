@@ -20,6 +20,21 @@ export default defineConfig({
                 },
             },
         },
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                // Example option to remove console statements
+                drop_console: true,
+            },
+            format: {
+                // Terser format options 
+                // Example option to remove comments
+                comments: false,
+            },
+            mangle: {
+                // Terser mangle options (optional)
+            },
+        },
     },
     resolve: {
         alias: {
