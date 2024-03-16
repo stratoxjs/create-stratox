@@ -38,7 +38,11 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
+            'stratox/src/Stratox': fileURLToPath(new URL('./packages/stratox/src/index.js', import.meta.url)),
+            '@stratox/pilot': fileURLToPath(new URL('./packages/StratoxPilot/src/index.js', import.meta.url)),
+            '@stratox/core': fileURLToPath(new URL('./packages/core/src/index.js', import.meta.url)),
+            '@stratox/tailwind': fileURLToPath(new URL('./packages/StratoxTailwind/src/index.js', import.meta.url)),
         }
     }
 })

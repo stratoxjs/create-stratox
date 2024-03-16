@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
+//@stratox/tailwind
+
 export default {
     content: [
         "./index.html",
@@ -33,7 +35,7 @@ export default {
         }
     },
     plugins: [
-        require('@stratox/tailwind').config({
+        require('./packages/StratoxTailwind/src/index.js').config({
             fontFamily: ['Open Sans', 'Helvetica', 'Arial', 'sans-serif'],
             fontFace: [
                 {
@@ -57,7 +59,8 @@ export default {
                         'font-style': 'normal',
                         'font-display': 'swap'
                 }
-            ]
-        })
+            ],
+            
+        }, require('tailwindcss/plugin'))
     ],
 }

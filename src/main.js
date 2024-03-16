@@ -12,6 +12,10 @@ const app = new App({
             yourHelper1: {},
             yourHelper2: {}
         };
+    },
+    response: {
+        startPath: "home",
+        //url: "https://testarea.creativearmy.se/systems/smartWidget/smart-widget/api/6504e455-9f0c-11ee-aeaf-fc349797688f",
     }
 });
 

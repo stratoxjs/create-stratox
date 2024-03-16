@@ -49,7 +49,6 @@ export class Pages {
                 e.preventDefault();
                 customTemplate.set({headline: "Incremented", increment: inc });
                 customTemplate.update();
-                // Increment for next update
                 inc++;
             });
         });   
