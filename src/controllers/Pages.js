@@ -103,7 +103,7 @@ export class Pages {
     }
 
     contactPost(request, container, helper, builder) {
-        const postData = Object.fromEntries(request.request.post.entries());
+        const postData = request.request.post;
         return `
         <div class="wrapper md card-1">
             <header class="mb">
