@@ -9,6 +9,13 @@
     "preview": "vite preview --host",
     "lint": "eslint . --ext .js --fix --ignore-path .gitignore"
   },
+  "files": [
+    "script.cjs",
+    "templates/"
+  ],
+  "bin": {
+    "create-stratox": "./script.cjs"
+  },
   "bugs": {
     "url": "https://stratox.wazabii.se/issues",
     "email": "daniel.ronkainen@wazabii.se"
