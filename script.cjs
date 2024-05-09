@@ -15,6 +15,14 @@ const prompt = [
   },
   {
     type: 'toggle',
+    name: 'tailwind',
+    message: 'Install Tailwind?',
+    initial: true,
+    active: 'yes',
+    inactive: 'no'
+  },
+  {
+    type: prev => prev ? 'toggle' : null,
     name: 'startoxTailwind',
     message: 'Install Stratox Tailwind design system?',
     initial: true,
@@ -23,9 +31,17 @@ const prompt = [
   },
   {
     type: 'toggle',
+    name: 'alpine',
+    message: 'Install Alpine?',
+    initial: true,
+    active: 'yes',
+    inactive: 'no'
+  },
+  {
+    type: 'toggle',
     name: 'eslint',
     message: 'ESlint for quality code?',
-    initial: true,
+    initial: false,
     active: 'yes',
     inactive: 'no'
   }
@@ -43,14 +59,13 @@ const packageData = {
   "devDependencies": {
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
     "terser": "^5.29.1",
     "vite": "^5.1.1"
   },
   "dependencies": {
-    "@stratox/core": "^1.0.0",
-    "@stratox/pilot": "^1.0.6",
-    "stratox": "^2.2.4"
+    "@stratox/core": "^2.0.0",
+    "@stratox/pilot": "^1.1.0",
+    "stratox": "^2.3.0"
   }
 }
 
@@ -67,9 +82,15 @@ function copyDir(src, dest) {
   }
 }
 
-function readFile(target) {
+function readFile(target, replace) {
   const sourceDir = path.join(__dirname, target);
-  return fs.readFileSync(sourceDir, 'utf-8');
+  let output = fs.readFileSync(sourceDir, 'utf-8');
+  if(typeof replace === "object") {
+    for (const [key, value] of Object.entries(replace)) {
+      output = output.replace('['+key.toUpperCase()+']', value);
+    }
+  }
+  return output;
 }
 
 function createProject(srource, target) {
@@ -101,7 +122,7 @@ function createFile(filePath, content) {
   // Write the file to the current directory
   fs.writeFile(textFilePath, content, (err) => {
     if (err) {
-      console.error('Error creating testText.md:', err);
+      console.error('Error creating '+filePath+':', err);
       process.exit(1);
     }
   });
@@ -148,7 +169,7 @@ function replaceSpecialChar(str) {
 console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
 (async () => {
 
-  let sucess = true;
+  let sucess = true, part1 = "import '@/assets/style.css';", part2 = '', part3 = '';
   const response = await prompts(prompt, {
     onCancel: function() {
       sucess = false;
@@ -160,11 +181,15 @@ console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
 
   if(sucess) {
     createDir(projectPath);
-    if(response.startoxTailwind) {
-      packageData.devDependencies['@stratox/tailwind'] = "^1.0.2";
-      createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind-stratox.txt"));
-    } else {
-      createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind.txt"));
+
+    if(response.tailwind) {
+      packageData.devDependencies['tailwindcss'] = "^3.4.1";
+      if(response.startoxTailwind) {
+        packageData.devDependencies['@stratox/tailwind'] = "^1.0.7";
+        createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind-stratox.txt"));
+      } else {
+        createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind.txt"));
+      }
     }
 
     if(response.eslint) {
@@ -173,18 +198,31 @@ console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
       createFile(projectPath+"/.eslintrc.json", readFile("./configs/eslint.txt"));
     }
 
+    if(response.alpine) {
+      part2 += "import Alpine from 'alpinejs';\n\nwindow.Alpine = Alpine;";
+      packageData.dependencies['alpinejs'] = "^3.13.10";
+    }
+
     // CREATE VITE CONFIG
     const packageJsonStr = JSON.stringify(packageData, true, 2);
     createFile(projectPath+"/package.json", packageJsonStr);
 
     // Create project files
     createProject('./templates', '/'+name);
+    
+
+    createFile(projectPath+"/src/main.js", readFile("./configs/main.txt", {
+      MAIN_PART_1: part1,
+      MAIN_PART_2: part2,
+      MAIN_PART_3: part3
+    }));
 
     console.log(`\nStratox has been installed...`);
     console.log(`run the commands bellow to complete the installation:\n`);
     console.log(`cd ${name}`);
     console.log(`npm install`);
     console.log(`npm run dev\n`);
+    
   } else {
     console.log(`The installation has been canceled`);
   }

@@ -1,0 +1,21 @@
+[MAIN_PART_1]
+import { App } from '@stratox/core';
+import routes from '@/routes/app';
+import components from '@/templates/components';
+import navigation from '@/templates/layout/navigation';
+[MAIN_PART_2]
+
+const app = new App({
+    components: components
+});
+
+app.setup("#app").mount(routes, app.serverParams("fragment"), function(response, request) {
+    return `
+        ${this.partial(navigation, request)}
+        <main>
+            ${response}
+        </main>
+    `;
+});
+
+[MAIN_PART_3]

@@ -2,7 +2,9 @@
 .DS_Store
 .smbdelete*
 package-lock.json
-node_modules
-dist
-src
-packages
+/node_modules/
+/dist/
+/src/
+/packages/
+!/templates/dist/
+!/templates/src/

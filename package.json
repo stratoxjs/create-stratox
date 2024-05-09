@@ -32,6 +32,8 @@
   "dependencies": {
     "@stratox/core": "^1.0.0",
     "@stratox/pilot": "^1.0.6",
+    "alpinejs": "^3.13.10",
+    "prompts": "^2.4.2",
     "stratox": "^2.2.4"
   },
   "homepage": "https://stratox.wazabii.se/",
