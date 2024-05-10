@@ -14,21 +14,19 @@ export class Pages {
     start(request, container, helper, builder) {
 
         const textSection1 = this.view({ textSection1: text }, {
-            headline: "Welcome!",
-            content: "lorem ipsum dolor",
+            headline: "Thanks for installing Stratox!",
+            content: `You've chosen the empty option. If this is your first time using the Stratox framework, we recommend following our step-by-step guide <a href="https://stratox.wazabii.se/v/stratox-framework" target="_blank">here</a>.`,
         });
 
         const textSection2 = this.view({ textSection2: text }, {
             headline: `Lorem ipsum`,
-            content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porttitor est non congue molestie. 
-            Duis nisi tortor, vehicula quis erat et, accumsan sodales magna. Suspendisse sed justo non lorem lacinia feugiat sed id tortor. 
-            Sed mattis lorem quis diam ultricies malesuada. Donec quis quam elementum, ornare quam in, facilisis ex.`,
+            content: `You can also install the example version alongside your current setup to switch between them and get helpful hints.`,
         });
 
         // Onload will be triggered once on page load!
         // Once the page is loaded, then dynamically update the headline in the textSection2 view.
         this.onload(function() {
-            textSection2.set({ headline: "Here some information" }).update();
+            textSection2.set({ headline: "The example" }).update();
         });
 
         return this;
@@ -159,5 +157,4 @@ export class Pages {
             output: 'Will take over the whole view!'
         };
     }
-
 }

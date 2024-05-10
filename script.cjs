@@ -24,7 +24,7 @@ const prompt = [
   {
     type: prev => prev ? 'toggle' : null,
     name: 'startoxTailwind',
-    message: 'Install Stratox Tailwind design system?',
+    message: 'Install Stratox Tailwind design system? (recommended)',
     initial: true,
     active: 'yes',
     inactive: 'no'
@@ -44,6 +44,14 @@ const prompt = [
     initial: false,
     active: 'yes',
     inactive: 'no'
+  },
+  {
+    type: 'toggle',
+    name: 'examples',
+    message: 'Install examples?',
+    initial: false,
+    active: 'yes',
+    inactive: 'no'
   }
 ];
 
@@ -58,7 +66,6 @@ const packageData = {
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
     "terser": "^5.29.1",
     "vite": "^5.1.1"
   },
@@ -106,13 +113,11 @@ function createProject(srource, target) {
 
 function createDir(dirname) {
   const dir = path.join(process.cwd(), dirname);
-  fs.mkdir(dir, (err) => {
-    if (err) {
-      console.error('Error creating directory:', err);
-    } else {
-      console.log('Directory "tests" created successfully.');
-    }
-  });
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+  } catch (err) {
+    console.error(`Error creating directory: ${err.message}`);
+  }
 }
 
 function createFile(filePath, content) {
@@ -126,6 +131,27 @@ function createFile(filePath, content) {
       process.exit(1);
     }
   });
+}
+
+// Remove a directory and all its files
+function removeDirectory(directory) {
+  const directoryPath = path.join(process.cwd(), directory);
+  try {
+    fs.rmSync(directoryPath, { recursive: true, force: true });
+  } catch (err) {
+    console.error(`Error while removing directory: ${err.message}`);
+  }
+}
+
+// Rename a directory
+function renameDirectory(oldP, newP) {
+  const oldPath = path.join(process.cwd(), oldP);
+  const newPath = path.join(process.cwd(), newP);
+  try {
+    fs.renameSync(oldPath, newPath);
+  } catch (err) {
+    console.error(`Error while renaming directory: ${err.message}`);
+  }
 }
 
 function toSeoUrl(url) {
@@ -165,11 +191,10 @@ function replaceSpecialChar(str) {
   return str.replace(/[éèëêÉÈËÊáàäâåÁÀÄÂÅóòöôÓÒÖÔíìïîÍÌÏÎúùüûÚÙÜÛýÿÝøØœŒÆçÇ]/g, match => charMap[match]);
 }
 
-
-console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
 (async () => {
 
-  let sucess = true, part1 = "import '@/assets/style.css';", part2 = '', part3 = '';
+  let sucess = true, part1 = "import '@/assets/style.css';", 
+  part2 = '', part3 = '', part4 = '';
   const response = await prompts(prompt, {
     onCancel: function() {
       sucess = false;
@@ -184,6 +209,8 @@ console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
 
     if(response.tailwind) {
       packageData.devDependencies['tailwindcss'] = "^3.4.1";
+      packageData.devDependencies['postcss'] = "^8.4.35";
+      createFile(projectPath+"/postcss.config.cjs", readFile("./configs/postcss.txt"));
       if(response.startoxTailwind) {
         packageData.devDependencies['@stratox/tailwind'] = "^1.0.7";
         createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind-stratox.txt"));
@@ -199,9 +226,9 @@ console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
     }
 
     if(response.alpine) {
-      part2 += "import Alpine from 'alpinejs';\n\nwindow.Alpine = Alpine;";
       packageData.dependencies['alpinejs'] = "^3.13.10";
     }
+
 
     // CREATE VITE CONFIG
     const packageJsonStr = JSON.stringify(packageData, true, 2);
@@ -210,11 +237,25 @@ console.log(`Ehhhh!THIS IS A TEST PACKAGE THAT WILL BE REMOVED!!!!`);
     // Create project files
     createProject('./templates', '/'+name);
     
+    if(response.examples) {
+      removeDirectory(projectPath+"/src-empty");
+      renameDirectory(projectPath+"/src-examples", projectPath+"/src");
+      part2 += "import navigation from '@/templates/layout/navigation';\n";
+      part4 += '${this.partial(navigation, request)}';
+    } else {
+      removeDirectory(projectPath+"/src-examples");
+      renameDirectory(projectPath+"/src-empty", projectPath+"/src");
+    }
+
+    if(response.alpine) {
+      part2 += "import Alpine from 'alpinejs';\n\nwindow.Alpine = Alpine;";
+    }
 
     createFile(projectPath+"/src/main.js", readFile("./configs/main.txt", {
       MAIN_PART_1: part1,
       MAIN_PART_2: part2,
-      MAIN_PART_3: part3
+      MAIN_PART_3: part3,
+      CONTENT_PART_1: part4
     }));
 
     console.log(`\nStratox has been installed...`);
