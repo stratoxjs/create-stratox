@@ -258,8 +258,8 @@ function replaceSpecialChar(str) {
       CONTENT_PART_1: part4
     }));
 
-    console.log(`\nStratox has been installed...`);
-    console.log(`run the commands bellow to complete the installation:\n`);
+    console.log(`\nStratox has been installed successfully!`);
+    console.log(`To complete the installation, follow these commands:\n`);
     console.log(`cd ${name}`);
     console.log(`npm install`);
     console.log(`npm run dev\n`);
