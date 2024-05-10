@@ -1,5 +1,5 @@
 
-# Startox framework
+# Startox.js - framework
 
 Stratox.js is a user-friendly JavaScript framework that simplifies web application development. By focusing on core JavaScript and HTML, it empowers even beginners to efficiently build engaging projects. Its template engine and form builder follow HTML semantics, ensuring straightforward and accessible development. Stratox.js delivers optimal performance, swift response times, and seamless functionality across all devices, making it ideal for developing versatile web applications.
 
@@ -60,7 +60,8 @@ export function text(data, container, helper, builder) {
 ```
 
 ### Create controller
-Import the view at the top and add your pages to the controller like below. 
+Let's create a controller file named `src/templates/Pages.js` and add the following code to it. Incorporate your view into the controller and pass in template data such as `headline` and `content`.
+
 ```js
 import { text } from "@/templates/views/text";
 

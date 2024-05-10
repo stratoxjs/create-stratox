@@ -3,9 +3,9 @@ export class HttpStatus {
     
     /**
      * The HTTP error status code page 
-     * You cn of course customize it with your own template view.
+     * You can of course customize it with your own template view.
      */
-    statusError(data, router) {
+    statusError(request, container, helper, builder) {
         return `
         <article class="relative card-1">
             <div class="wrapper md text-center">
