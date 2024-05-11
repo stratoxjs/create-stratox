@@ -1,5 +1,5 @@
 
-# Startox.js - framework
+# Stratox.js - framework ![npm](https://img.shields.io/npm/v/create-stratox)
 
 Stratox.js is a user-friendly JavaScript framework that simplifies web application development. By focusing on core JavaScript and HTML, it empowers even beginners to efficiently build engaging projects. Its template engine and form builder follow HTML semantics, ensuring straightforward and accessible development. Stratox.js delivers optimal performance, swift response times, and seamless functionality across all devices, making it ideal for developing versatile web applications.
 
