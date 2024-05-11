@@ -31,6 +31,7 @@
     "vite": "^5.1.1"
   },
   "dependencies": {
+    "@stratox/component": "^1.0.0",
     "@stratox/core": "^1.0.0",
     "@stratox/pilot": "^1.0.6",
     "alpinejs": "^3.13.10",

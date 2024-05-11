@@ -72,6 +72,7 @@ const packageData = {
   "dependencies": {
     "@stratox/core": "^2.0.0",
     "@stratox/pilot": "^1.1.0",
+    "@stratox/component": "^1.0.0",
     "stratox": "^2.3.0"
   }
 }

@@ -6,6 +6,8 @@ export default {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
+        "./packages/StratoxComponents/src/*.js"
+        //"./node_modules/@stratox/component/src/*.js"
     ],
     theme: {
         extend: {

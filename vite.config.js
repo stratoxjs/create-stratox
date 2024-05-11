@@ -44,6 +44,7 @@ export default defineConfig({
             '@stratox/pilot': fileURLToPath(new URL('./packages/StratoxPilot/src/index.js', import.meta.url)),
             '@stratox/core': fileURLToPath(new URL('./packages/core/src/index.js', import.meta.url)),
             '@stratox/tailwind': fileURLToPath(new URL('./packages/StratoxTailwind/src/index.js', import.meta.url)),
+            '@stratox/component': fileURLToPath(new URL('./packages/StratoxComponents/src/index.js', import.meta.url))
         }
     }
 })
