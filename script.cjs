@@ -4,7 +4,6 @@ const prompts = require('prompts');
 // Require the file system module
 const fs = require('fs');
 const path = require('path');
-const basePath = __dirname;
 
 const prompt = [
   {
@@ -34,7 +33,7 @@ const prompt = [
     type: 'toggle',
     name: 'alpine',
     message: 'Install Alpine?',
-    initial: true,
+    initial: false,
     active: 'yes',
     inactive: 'no'
   },
@@ -103,7 +102,7 @@ function readFile(target, replace) {
 
 function createProject(srource, target) {
   const sourceDir = path.join(__dirname, srource);
-  const targetDir = basePath+target; 
+  const targetDir = process.cwd()+target; 
 
   try {
     copyDir(sourceDir, targetDir);
@@ -113,7 +112,7 @@ function createProject(srource, target) {
 }
 
 function createDir(dirname) {
-  const dir = path.join(basePath, dirname);
+  const dir = path.join(process.cwd(), dirname);
   try {
     fs.mkdirSync(dir, { recursive: true });
   } catch (err) {
@@ -123,7 +122,7 @@ function createDir(dirname) {
 
 function createFile(filePath, content) {
   // Specify the path for the new file
-  const textFilePath = path.join(basePath, filePath);
+  const textFilePath = path.join(process.cwd(), filePath);
 
   // Write the file to the current directory
   fs.writeFile(textFilePath, content, (err) => {
@@ -136,7 +135,7 @@ function createFile(filePath, content) {
 
 // Remove a directory and all its files
 function removeDirectory(directory) {
-  const directoryPath = path.join(basePath, directory);
+  const directoryPath = path.join(process.cwd(), directory);
   try {
     fs.rmSync(directoryPath, { recursive: true, force: true });
   } catch (err) {
@@ -146,8 +145,8 @@ function removeDirectory(directory) {
 
 // Rename a directory
 function renameDirectory(oldP, newP) {
-  const oldPath = path.join(basePath, oldP);
-  const newPath = path.join(basePath, newP);
+  const oldPath = path.join(process.cwd(), oldP);
+  const newPath = path.join(process.cwd(), newP);
   try {
     fs.renameSync(oldPath, newPath);
   } catch (err) {

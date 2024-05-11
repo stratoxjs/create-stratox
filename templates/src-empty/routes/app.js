@@ -11,7 +11,7 @@ router.get('/', function() {
 		</figure>
 		<section>
 			<h1 class="headline-2">Thanks for installing Stratox!</h1>
-			<p>You've chosen the empty option. If this is your first time using the Stratox framework, we recommend following our step-by-step guide <a href="https://stratox.wazabii.se/v/stratox-framework" target="_blank">here</a>.</p>
+			<p>You've chosen the empty option. If this is your first time using the Stratox framework, we recommend following our step-by-step guide <a href="https://stratox.wazabii.se/" target="_blank">here</a>.</p>
 			<p>You can also install the example version alongside your current setup to switch between them and get helpful hints.</p>
 		</section>
 	</article>

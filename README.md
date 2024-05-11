@@ -10,15 +10,15 @@ Stratox.js is a user-friendly JavaScript framework that simplifies web applicati
 **[You can find the full Startox documentation here](https://stratox.wazabii.se/)**
 
 #### The documentation is divided into several sections:
--   [Why Stratox.js?](www)
--   [Installation](www)
--   [Directory overview](www)
--   [Getting started](www)
--   [Navigation](www)
--   [Controllers](www)
--   [Dynamic event](www)
--   [Form builder](wwww)
--   [Ajax Integration](www)
+-   [Why Stratox?](https://stratox.wazabii.se/)
+-   [Installation](https://stratox.wazabii.se/installation)
+-   [Directory overview](https://stratox.wazabii.se/step-by-step-tutorial/directory-overview)
+-   [Getting started](https://stratox.wazabii.se/step-by-step-tutorial/getting-started)
+-   [Navigation](https://stratox.wazabii.se/step-by-step-tutorial/navigation)
+-   [Controllers](https://stratox.wazabii.se/step-by-step-tutorial/controllers)
+-   [Dynamic event](https://stratox.wazabii.se/step-by-step-tutorial/dynamic-event)
+-   [Form builder](https://stratox.wazabii.se/step-by-step-tutorial/forms)
+-   [Ajax Integration](https://stratox.wazabii.se/step-by-step-tutorial/ajax-integration)
 - ...
 
 **[You can find the full Startox documentation here](https://stratox.wazabii.se/)**
@@ -26,7 +26,7 @@ Stratox.js is a user-friendly JavaScript framework that simplifies web applicati
 ## Installation 
 To install Stratox, simply execute the following command:
 ```
-npm create stratox
+npm create stratox@latest
 ```
 Next, follow the prompted instructions to complete the installation process. If you're a first-time user, I highly recommend reading through the entire guide.
 
