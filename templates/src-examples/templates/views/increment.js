@@ -6,7 +6,7 @@ export function increment(data, container, helper, builder) {
 	const inst = this;
 
     // The done function will listen to view change
-    inst.done(function(a, b) {
+    inst.eventOnload(function() {
         const el = document.getElementById("my-btn");
         el.addEventListener("click", function(e) {
             e.preventDefault();
