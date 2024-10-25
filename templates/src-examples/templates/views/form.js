@@ -6,11 +6,8 @@ export function form(data, container, $, builder)
     <article class="card-1">
         <div class="wrapper md">
              ${getIngress()}
-            <form class="flex flex-wrap gap-x-15" action="${data.action}" method="${data.method}">`;
-                builder.groupFactory(function (o, val) {
-                    out += o;
-                });
-            out += `
+            <form class="flex flex-wrap gap-x-15" action="${data.action}" method="${data.method}">
+                ${builder.getFields()}
             </form>
         </div>
     </article>
