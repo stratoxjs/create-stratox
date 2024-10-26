@@ -1,7 +1,7 @@
 {
   "name": "create-stratox",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "JavaScript template framework for the effortless creation of component, views and user interfaces (UI).",
   "scripts": {
     "dev": "vite --host",
