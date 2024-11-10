@@ -59,7 +59,7 @@ const packageData = {
   "devDependencies": {
     "autoprefixer": "^10.4.17",
     "terser": "^5.34.1",
-    "vite": "^5.4.0"
+    "vite": "^5.4.8"
   },
   "dependencies": {
     "@stratox/core": "^2.2.0",
