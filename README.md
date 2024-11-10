@@ -11,14 +11,15 @@ Stratox.js is a user-friendly JavaScript framework that simplifies web applicati
 
 #### The documentation is divided into several sections:
 -   [Why Stratox?](https://stratox.wazabii.se/)
--   [Installation](https://stratox.wazabii.se/installation)
+-   [Installation](https://stratox.wazabii.se/quick-start-mvc)
+-   [Quick Start (MVC)](https://stratox.wazabii.se/quick-start-mvc)
 -   [Directory overview](https://stratox.wazabii.se/step-by-step-tutorial/directory-overview)
 -   [Getting started](https://stratox.wazabii.se/step-by-step-tutorial/getting-started)
 -   [Navigation](https://stratox.wazabii.se/step-by-step-tutorial/navigation)
 -   [Controllers](https://stratox.wazabii.se/step-by-step-tutorial/controllers)
--   [Dynamic event](https://stratox.wazabii.se/step-by-step-tutorial/dynamic-event)
+-   [Increment / Events](https://stratox.wazabii.se/step-by-step-tutorial/increment-events)
 -   [Form builder](https://stratox.wazabii.se/step-by-step-tutorial/forms)
--   [Ajax Integration](https://stratox.wazabii.se/step-by-step-tutorial/ajax-integration)
+-   [Fetch Library (Ajax Requests)](https://stratox.wazabii.se/step-by-step-tutorial/fetch-library-ajax-requests)
 - ...
 
 **[You can find the full Startox documentation here](https://stratox.wazabii.se/)**
@@ -45,14 +46,14 @@ Below you can se a quick preview how to use the framework.
 
 ### Create view
 
-Let's begin by creating a dynamic template view file named `src/templates/views/text.js`. and add the following content to it.
+Let's begin by creating a dynamic template view file named `src/templates/views/HelloWorld.js`. and add the following content to it.
 ```js
-export function text(data, container, helper, builder) {
+export function HelloWorld(props, container, helper, context) {
 	return `
 	<article class="relative card-1 border-bottom ingress">
 		<div class="wrapper md">
-		    <h1 class="headline-1">${data.headline}</h1>
-		    <p>${data.content}</p>
+	    <h1 class="headline-1">${props.headline}</h1>
+	    <p>${props.content}</p>
 		</div>
 	</article>
 	`;
@@ -60,28 +61,21 @@ export function text(data, container, helper, builder) {
 ```
 
 ### Create controller
-Let's create a controller file named `src/templates/Pages.js` and add the following code to it. Incorporate your view into the controller and pass in template data such as `headline` and `content`.
+Let's create a controller file named `src/templates/controllers/PagesController.js` and add the following code to it. Incorporate your view into the controller and pass in template props such as `headline` and `content`.
 
 ```js
-import { text } from "@/templates/views/text";
+import { HelloWorld } from "@/templates/views/HelloWorld";
 
-export class Pages {
+export default class PagesController {
 
-    start(request, container, helper, builder) {
-        this.view(text, {
-            headline: "Hello world!",
-            content: "Lorem ipsum dolor",
-        });
-        return this;
-    }
+  start(http, container, helper, context) {
+    this.layout(HelloWorld, {
+      headline: "Hello world!",
+      content: "Lorem ipsum dolor",
+    });
+    return this;
+  }
     
-    about(request, container, helper, builder) {
-        this.view(text, {
-            headline: "About us",
-            content: "Lorem ipsum dolor",
-        });
-        return this;
-    }
 }
 ```
 ### Router
@@ -90,14 +84,13 @@ Now that we have created the controller, we need to establish a connection betwe
 First, add the import statement for the `Pages` controller at the **top** of the router file `src/routes/app.js`:
 
 ```js
-import { Pages } from '@/controllers/Pages';
+import { PagesController } from '@/controllers/PagesController';
 ```
 
 Then, update the router routes for the start and about pages as follows, connecting your controller to each route:
 
 ```js
-router.get('/', [Pages, "start"]);
-router.get('/about', [Pages, "about"]);
+router.get('/', [PagesController, "start"]);
 ```
 ### Resulting in
 

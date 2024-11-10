@@ -44,14 +44,6 @@ const prompt = [
     initial: false,
     active: 'yes',
     inactive: 'no'
-  },
-  {
-    type: 'toggle',
-    name: 'examples',
-    message: 'Install examples?',
-    initial: false,
-    active: 'yes',
-    inactive: 'no'
   }
 ];
 
@@ -238,15 +230,9 @@ function replaceSpecialChar(str) {
     // Create project files
     createProject('./templates', '/'+name);
     
-    if(response.examples) {
-      removeDirectory(projectPath+"/src-empty");
-      renameDirectory(projectPath+"/src-examples", projectPath+"/src");
-      part2 += "import navigation from '@/templates/layout/navigation';\n";
-      part4 += '${this.partial(navigation, request)}';
-    } else {
-      removeDirectory(projectPath+"/src-examples");
-      renameDirectory(projectPath+"/src-empty", projectPath+"/src");
-    }
+    
+    // Can create mulitple src versions
+    renameDirectory(projectPath+"/src-default", projectPath+"/src");
 
     if(response.alpine) {
       part2 += "import Alpine from 'alpinejs';\n\nwindow.Alpine = Alpine;";
