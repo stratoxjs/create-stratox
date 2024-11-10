@@ -58,14 +58,14 @@ const packageData = {
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
-    "terser": "^5.29.1",
-    "vite": "^5.1.1"
+    "terser": "^5.34.1",
+    "vite": "^5.4.0"
   },
   "dependencies": {
-    "@stratox/core": "^2.0.0",
-    "@stratox/pilot": "^1.1.0",
+    "@stratox/core": "^2.2.0",
+    "@stratox/pilot": "^1.2.0",
     "@stratox/component": "^1.0.0",
-    "stratox": "^2.3.0"
+    "stratox": "^3.0.0"
   }
 }
 
@@ -202,10 +202,10 @@ function replaceSpecialChar(str) {
 
     if(response.tailwind) {
       packageData.devDependencies['tailwindcss'] = "^3.4.1";
-      packageData.devDependencies['postcss'] = "^8.4.35";
+      packageData.devDependencies['postcss'] = "^8.4.47";
       createFile(projectPath+"/postcss.config.cjs", readFile("./configs/postcss.txt"));
       if(response.startoxTailwind) {
-        packageData.devDependencies['@stratox/tailwind'] = "^1.0.7";
+        packageData.devDependencies['@stratox/tailwind'] = "^1.1.0";
         createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind-stratox.txt"));
       } else {
         createFile(projectPath+"/tailwind.config.cjs", readFile("./configs/tailwind.txt"));
@@ -213,13 +213,13 @@ function replaceSpecialChar(str) {
     }
 
     if(response.eslint) {
-      packageData.devDependencies['eslint'] = "^8.56.0";
+      packageData.devDependencies['eslint'] = "^9.11.0";
       packageData.scripts['lint'] = "eslint . --ext .js --fix --ignore-path .gitignore";
       createFile(projectPath+"/.eslintrc.json", readFile("./configs/eslint.txt"));
     }
 
     if(response.alpine) {
-      packageData.dependencies['alpinejs'] = "^3.13.10";
+      packageData.dependencies['alpinejs'] = "^3.14.1";
     }
 
 
