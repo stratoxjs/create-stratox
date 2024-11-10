@@ -1,20 +1,20 @@
 [MAIN_PART_1]
 import { App } from '@stratox/core';
 import routes from '@/routes/app';
-import components from '@/templates/components';
+import Fields from '@/templates/Fields';
 [MAIN_PART_2]
 
 const app = new App({
-    components: components
+  fields: Fields
 });
 
 app.setup("#app").mount(routes, app.serverParams("fragment"), function(response, request) {
-    return `
-        [CONTENT_PART_1]
-        <main>
-            ${response}
-        </main>
-    `;
+  return `
+    [CONTENT_PART_1]
+    <main>
+      ${response}
+    </main>
+  `;
 });
 
 [MAIN_PART_3]

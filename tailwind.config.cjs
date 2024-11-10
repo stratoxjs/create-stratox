@@ -38,6 +38,8 @@ export default {
     },
     plugins: [
         require('./packages/StratoxTailwind/src/index.js').config({
+            nomralizeRemUnit: true,
+            normalizeSpacing: true,
             fontFamily: ['Open Sans', 'Helvetica', 'Arial', 'sans-serif'],
             fontFace: [
                 {

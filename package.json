@@ -1,7 +1,7 @@
 {
   "name": "create-stratox",
   "type": "module",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "JavaScript template framework for the effortless creation of component, views and user interfaces (UI).",
   "scripts": {
     "dev": "vite --host",
@@ -22,7 +22,7 @@
     "email": "daniel.ronkainen@wazabii.se"
   },
   "devDependencies": {
-    "@stratox/tailwind": "^1.0.2",
+    "@stratox/tailwind": "^1.1.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^9.11.0",
     "postcss": "^8.4.47",
@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@stratox/component": "^1.0.0",
-    "@stratox/core": "^1.0.0",
-    "@stratox/pilot": "^1.0.6",
+    "@stratox/core": "^2.2.0",
+    "@stratox/pilot": "^1.2.0",
     "alpinejs": "^3.14.1",
     "prompts": "^2.4.2",
-    "stratox": "^2.2.4"
+    "stratox": "^3.0.0"
   },
   "homepage": "https://stratox.wazabii.se/",
   "keywords": [
