@@ -1,4 +1,4 @@
-import Router from '@stratox/pilot';
+import { Router } from '@stratox/pilot';
 import HttpStatus from '@/controllers/HttpStatus';
 
 const router = new Router();

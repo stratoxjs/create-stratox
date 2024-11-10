@@ -1,5 +1,5 @@
 
-export class HttpStatus {
+export default class HttpStatus {
     
     /**
      * The HTTP error status code page 

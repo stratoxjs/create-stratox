@@ -48,7 +48,7 @@ Below you can se a quick preview how to use the framework.
 
 Let's begin by creating a dynamic template view file named `src/templates/views/HelloWorld.js`. and add the following content to it.
 ```js
-export function HelloWorld(props, container, helper, context) {
+export default function HelloWorld(props, container, helper, context) {
 	return `
 	<article class="relative card-1 border-bottom ingress">
 		<div class="wrapper md">
@@ -64,7 +64,7 @@ export function HelloWorld(props, container, helper, context) {
 Let's create a controller file named `src/templates/controllers/PagesController.js` and add the following code to it. Incorporate your view into the controller and pass in template props such as `headline` and `content`.
 
 ```js
-import { HelloWorld } from "@/templates/views/HelloWorld";
+import HelloWorld from "@/templates/views/HelloWorld";
 
 export default class PagesController {
 
@@ -84,7 +84,7 @@ Now that we have created the controller, we need to establish a connection betwe
 First, add the import statement for the `Pages` controller at the **top** of the router file `src/routes/app.js`:
 
 ```js
-import { PagesController } from '@/controllers/PagesController';
+import PagesController from '@/controllers/PagesController';
 ```
 
 Then, update the router routes for the start and about pages as follows, connecting your controller to each route:
