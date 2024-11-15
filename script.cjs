@@ -24,8 +24,8 @@ const prompt = [
   {
     type: prev => prev ? 'toggle' : null,
     name: 'startoxTailwind',
-    message: 'Install Stratox Tailwind design system? (recommended)',
-    initial: true,
+    message: 'Stratox design system?',
+    initial: false,
     active: 'yes',
     inactive: 'no'
   },
