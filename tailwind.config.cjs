@@ -38,7 +38,7 @@ export default {
     },
     plugins: [
         require('./packages/StratoxTailwind/src/index.js').config({
-            nomralizeRemUnit: true,
+            normalizeRemUnit: true,
             normalizeSpacing: true,
             fontFamily: ['Open Sans', 'Helvetica', 'Arial', 'sans-serif'],
             fontFace: [
@@ -63,8 +63,7 @@ export default {
                         'font-style': 'normal',
                         'font-display': 'swap'
                 }
-            ],
-            
+            ]
         }, require('tailwindcss/plugin'))
     ],
 }
