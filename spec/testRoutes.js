@@ -9,7 +9,7 @@ function myComponentPartial({ props }) {
   return output;
 }
 
-function myComponent({ props, dispatch, server, view, services }) {
+function myComponent({ props, dispatch, http, view, services }) {
   const { output } = this.partial(myComponentPartial, props);
   const { output: outputBlock } = this.block(({ props }) => props.test, props);
 
@@ -46,11 +46,11 @@ function myComponentStates({ state }) {
   return layoutTestValue;
 }
 
-router.get('/', function({ server, dispatch, services }) {
+router.get('/', function({ http, dispatch, services }) {
 
 
   test('HTTP status OK', () => {
-    expect(server.status).toBe(200);
+    expect(http.status).toBe(200);
   });
 
   this.layout(myComponent, { test: layoutTestValue });
@@ -86,9 +86,9 @@ router.get('/test-state', function({ request, dispatch, state }) {
 
 // Will handle 404 and 405 HTTP Status errors codes
 // Not required you can also handle it directly in the dispatcher
-router.get('[STATUS_ERROR]', function({ server }) {
+router.get('[STATUS_ERROR]', function({ http }) {
   test('HTTP status not found', () => {
-    expect(server.status).toBe(404);
+    expect(http.status).toBe(404);
   });
   return "404";
 });
