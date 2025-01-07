@@ -28,6 +28,13 @@ export default defineConfig({
       '@stratox/core',
     ],
   },
+  test: {
+    environment: 'jsdom',
+    exclude: [
+      'node_modules',
+      'packages'
+    ],
+  },
   startoxSSG: {
     paths: [
       '/',
