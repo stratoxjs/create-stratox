@@ -35,13 +35,10 @@ const app = new App({
 let count = 0;
 
 
-app.setup("#app").mount(routes, app.serverParams("path"), function(response, server) {
-
+app.setup("#app").mount(routes, app.serverParams("path"), function(response, http) {
 
   let msg = (++count)+'. ';
-
   msg += (count > 1) ? "Next page response: OK" : "Start page response: OK";
-
 
   test(msg, () => {
     expect(response.indexOf('id=\"stratox')).toBe(5);

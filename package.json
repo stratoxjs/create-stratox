@@ -9,7 +9,7 @@
     "preview": "vite preview --host",
     "lint": "eslint --fix . --ignore-pattern .gitignore",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:dev": "vitest"
   },
   "files": [
     "script.cjs",
