@@ -1,11 +1,8 @@
 import { expect, test } from 'vitest'
 import { App } from '@stratox/core';
-import routes from './testRoutes';
+import routes from './routes-main';
 import Fields from '@/templates/Fields';
-import navigation from '@/templates/layout/navigation';
 
-//import Alpine from 'alpinejs';
-//window.Alpine = Alpine;
 
 const app = new App({
   fields: Fields,

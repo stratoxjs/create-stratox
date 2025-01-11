@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { Stratox } from 'stratox';
 import { Router, Dispatcher } from '@stratox/pilot';
 import Form from "@/templates/views/blocks/Form";
+import { StratoxFetch } from '@stratox/core';
 
 const router = new Router();
 const layoutTestValue = "TheLayoutViewHasLoaded";
@@ -14,7 +14,6 @@ function myComponentPartial({ props }) {
 function myComponent({ props, dispatch, http, view, services }) {
   const { output } = this.partial(myComponentPartial, props);
   const { output: outputBlock } = this.block(({ props }) => props.test, props);
-
 
   test('The dispatch is instance of Dispatcher', () => {
     expect(dispatch instanceof Dispatcher).toBe(true);
@@ -36,7 +35,6 @@ function myComponent({ props, dispatch, http, view, services }) {
 }
 
 function myComponentStates({ state }) {
-  
   state.set("test", "stateTest");
   if(state.get("test") === "stateTest") {
     state.update("test", "stateTestUpdated");
@@ -50,8 +48,6 @@ function myComponentStates({ state }) {
 }
 
 router.get('/', function({ http, dispatch, services }) {
-
-
   test('HTTP status OK', () => {
     expect(http.status).toBe(200);
   });
@@ -64,10 +60,7 @@ router.get('/', function({ http, dispatch, services }) {
       expect(services.get("test")).toBe("hasService");
     }
   });
-
-
   dispatch.navigateTo("/test", { test: "lorem" });
-
   return this;
 });
 
