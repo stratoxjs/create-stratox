@@ -7,7 +7,7 @@ const app = new App({
     fields: Fields
 });
 
-app.setup("#app").mount(routes, app.serverParams("fragment"), function(response, request) {
+app.setup("#app").mount(routes, app.serverParams("auto"), function(response, request) {
     return `
         <main>
             ${response}

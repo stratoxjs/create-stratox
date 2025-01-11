@@ -31,8 +31,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     exclude: [
-      'node_modules',
-      'packages'
+      '**/node_modules'
     ],
   },
   startoxSSG: {
