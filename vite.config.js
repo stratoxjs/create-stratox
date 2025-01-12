@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { normalizePath, defineConfig } from 'vite'
-import stratoxVitePlugin from '@stratox/core/stratox-vite-plugin'
+//import stratoxVitePlugin from '@stratox/core/stratox-vite-plugin'
+import stratoxVitePlugin from './packages/core/stratox-vite-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
