@@ -1,99 +1,40 @@
 
-# Stratox.js - framework ![npm](https://img.shields.io/npm/v/create-stratox)
-
-Stratox.js is a user-friendly JavaScript framework that simplifies web application development. By focusing on core JavaScript and HTML, it empowers even beginners to efficiently build engaging projects. Its template engine and form builder follow HTML semantics, ensuring straightforward and accessible development. Stratox.js delivers optimal performance, swift response times, and seamless functionality across all devices, making it ideal for developing versatile web applications.
+# Stratox.js ![npm](https://img.shields.io/npm/v/stratox)
 
 ![enter image description here](http://wazabii.se/github-assets/installation-prompt-1.png)
 
-## Documentation
+Stratox.js is a versatile JavaScript solution that empowers developers to create everything from high-quality Single-Page Applications (SPAs), developing full-scale applications to enhancing static HTML with dynamic components—effortlessly. Whether you opt for the framework or the template library, Stratox.js provides a robust foundation for modern web development.
 
-**[You can find the full Startox documentation here](https://stratox.wazabii.se/)**
+Delivering outstanding performance and fast response times across platforms, Stratox.js operates independently of external dependencies. Its UI engine and form builder align with HTML semantics, ensuring simplicity and accessibility. 
 
-#### The documentation is divided into several sections:
--   [Why Stratox?](https://stratox.wazabii.se/)
--   [Installation](https://stratox.wazabii.se/quick-start-mvc)
--   [Quick Start (MVC)](https://stratox.wazabii.se/quick-start-mvc)
--   [Directory overview](https://stratox.wazabii.se/step-by-step-tutorial/directory-overview)
--   [Getting started](https://stratox.wazabii.se/step-by-step-tutorial/getting-started)
--   [Navigation](https://stratox.wazabii.se/step-by-step-tutorial/navigation)
--   [Controllers](https://stratox.wazabii.se/step-by-step-tutorial/controllers)
--   [Increment / Events](https://stratox.wazabii.se/step-by-step-tutorial/increment-events)
--   [Form builder](https://stratox.wazabii.se/step-by-step-tutorial/forms)
--   [Fetch Library (Ajax Requests)](https://stratox.wazabii.se/step-by-step-tutorial/fetch-library-ajax-requests)
-- ...
+Stratox.js is built to be  user-friendly, that simplifies the creation of applications.
 
-**[You can find the full Startox documentation here](https://stratox.wazabii.se/)**
 
-## Installation 
-To install Stratox, simply execute the following command:
-```
-npm create stratox@latest
-```
-Next, follow the prompted instructions to complete the installation process. If you're a first-time user, I highly recommend reading through the entire guide.
+## Stratox: Library or Framework? 
+Are you looking for the Stratox Library or the Stratox Framework? Stratox is available as both a library and a framework, catering to different development needs.
 
-_The installation prompt will also offer to install examples. While you can choose to install them, the step-by-step guide will build something similar to the examples. It is better to install the examples alongside your current setup to switch between them and receive helpful hints._
+### Startox: Framework
+Stratox also comes as a fully-featured framework, offering a comprehensive solution for building modern, dynamic applications from the ground up. The framework simplifies complex tasks with built-in tools and structured workflows, making it ideal for creating full-fledged web apps with minimal setup. If you’re seeking a robust foundation to kickstart your project, the Stratox Framework is your go-to choice.
 
-## Updating the framework
-To update Stratox, use the following command:
-```
-npm update
-```
-This command will ensure that you have the latest version of the framework installed.
+[Stratox Framework documentation](https://stratox.wazabii.se)
 
-## Quick preview
+### Startox: Library
+The library version provides a lightweight, flexible tool that integrates seamlessly with your existing scripts, giving you full control over implementation. It’s an excellent choice for enhancing static websites with dynamic content, allowing you to add interactivity without overhauling your entire setup.
 
-Below you can se a quick preview how to use the framework.
+[Stratox Library documentation](https://stratox.wazabii.se/stratox.js)
 
-### Create view
-
-Let's begin by creating a dynamic template view file named `src/templates/views/HelloWorld.js`. and add the following content to it.
+## Example
+Below is a just **basic** example to demonstrate how easy it is to build a component. 
 ```js
-export default function HelloWorld(props, container, helper, context) {
-	return `
-	<article class="relative card-1 border-bottom ingress">
-		<div class="wrapper md">
-	    <h1 class="headline-1">${props.headline}</h1>
-	    <p>${props.content}</p>
-		</div>
-	</article>
-	`;
+export default function MyTextComponent({ props }) {
+    return `
+    <header>
+        <h1>${props.headline}</h1>
+        <p>${props.content}</p>
+    </header>
+    `;
 }
-```
-
-### Create controller
-Let's create a controller file named `src/templates/controllers/PagesController.js` and add the following code to it. Incorporate your view into the controller and pass in template props such as `headline` and `content`.
-
-```js
-import HelloWorld from "@/templates/views/HelloWorld";
-
-export default class PagesController {
-
-  start(http, container, helper, context) {
-    this.layout(HelloWorld, {
-      headline: "Hello world!",
-      content: "Lorem ipsum dolor",
-    });
-    return this;
-  }
-    
-}
-```
-### Router
-Now that we have created the controller, we need to establish a connection between it and the router. Let's open up the router example again and make the following changes:
-
-First, add the import statement for the `Pages` controller at the **top** of the router file `src/routes/app.js`:
-
-```js
-import PagesController from '@/controllers/PagesController';
-```
-
-Then, update the router routes for the start and about pages as follows, connecting your controller to each route:
-
-```js
-router.get('/', [PagesController, "start"]);
 ```
 ### Resulting in
 
 ![enter image description here](https://wazabii.se/github-assets/example-result-about.png)
-
-

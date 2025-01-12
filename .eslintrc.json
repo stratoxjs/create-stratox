@@ -1,7 +1,0 @@
-{
-  "root": true,
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 13
-  }
-}

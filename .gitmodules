@@ -1,0 +1,15 @@
+[submodule "packages/core"]
+	path = packages/core
+	url = git@github.com:stratoxjs/core.git
+[submodule "packages/stratox"]
+	path = packages/stratox
+	url = git@github.com:stratoxjs/stratox.git
+[submodule "packages/StratoxPilot"]
+	path = packages/StratoxPilot
+	url = git@github.com:stratoxjs/StratoxPilot.git
+[submodule "packages/StratoxTailwind"]
+	path = packages/StratoxTailwind
+	url = git@github.com:stratoxjs/StratoxTailwind.git
+[submodule "packages/StratoxSSG"]
+	path = packages/StratoxSSG
+	url = git@github.com:stratoxjs/StratoxSSG.git

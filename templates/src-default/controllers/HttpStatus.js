@@ -5,7 +5,7 @@ export default class HttpStatus {
      * The HTTP error status code page 
      * You can of course customize it with your own template view.
      */
-    statusError(request, container, helper, builder) {
+    statusError({ http }) {
         return `
         <article class="relative card-1">
             <div class="wrapper md text-center">
